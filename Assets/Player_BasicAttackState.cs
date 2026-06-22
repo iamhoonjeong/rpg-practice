@@ -4,14 +4,28 @@ public class Player_BasicAttackState : EntityState
 {
     private float attackVelocityTimer;
 
+    private const int FirstComboIndex = 1;
+    private int comboIndex = 1;
+    private int comboLimit = 3;
+
+    private float lastTimeAttacked;
+
     public Player_BasicAttackState(Player player, StateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
     {
+        if (comboLimit != player.attackVelocity.Length)
+        {
+            Debug.LogWarning("Combo limit adjusted because of the difference of the array length");
+            comboLimit = player.attackVelocity.Length;
+        }
     }
 
     public override void Enter()
     {
         base.Enter();
-        GenerateAttackVelocity();
+        ResetComboIndexIfNeeded();
+
+        anim.SetInteger("basicAttackIndex", comboIndex);
+        ApplyAttackVelocity();
     }
 
     public override void Update()
@@ -23,6 +37,13 @@ public class Player_BasicAttackState : EntityState
             stateMachine.ChangeState(player.idleState);
     }
 
+    public override void Exit()
+    {
+        base.Exit();
+        comboIndex++;
+        lastTimeAttacked = Time.time;
+    }
+
     private void HandleAttackVelocity()
     {
         attackVelocityTimer -= Time.deltaTime;
@@ -31,9 +52,20 @@ public class Player_BasicAttackState : EntityState
             player.SetVelocity(0, rb.linearVelocity.y);
     }
 
-    private void GenerateAttackVelocity()
+    private void ApplyAttackVelocity()
     {
+        Vector2 attackVelocity = player.attackVelocity[comboIndex - 1];
+
         attackVelocityTimer = player.attackVelocityDuration;
-        player.SetVelocity(player.attackVelocity.x * player.facingDir, player.attackVelocity.y);
+        player.SetVelocity(attackVelocity.x * player.facingDir, attackVelocity.y);
+    }
+
+    private void ResetComboIndexIfNeeded()
+    {
+        if (Time.time > lastTimeAttacked + player.comboResetTime)
+            comboIndex = FirstComboIndex;
+
+        if (comboIndex > comboLimit)
+            comboIndex = FirstComboIndex;
     }
 }
