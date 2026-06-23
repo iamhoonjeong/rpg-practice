@@ -7,6 +7,7 @@ public class Player_JumpAttackState : EntityState
     public Player_JumpAttackState(Player player, StateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
     {
     }
+
     public override void Enter()
     {
         base.Enter();
@@ -29,4 +30,5 @@ public class Player_JumpAttackState : EntityState
         if (triggerCalled && player.groundDetected)
             stateMachine.ChangeState(player.idleState);
     }
+
 }

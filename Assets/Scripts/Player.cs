@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
 
     private StateMachine stateMachine;
 
+
+
     public Player_IdleState idleState { get; private set; }
     public Player_MoveState moveState { get; private set; }
     public Player_JumpState jumpState { get; private set; }
@@ -22,22 +24,26 @@ public class Player : MonoBehaviour
     [Header("Attack details")]
     public Vector2[] attackVelocity;
     public Vector2 jumpAttackVelocity;
-    public float attackVelocityDuration = 0.1f;
-    public float comboResetTime = 1f;
+    public float attackVelocityDuration = .1f;
+    public float comboResetTime = 1;
     private Coroutine queuedAttackCo;
+
+
 
     [Header("Movement details")]
     public float moveSpeed;
-    public float jumpForce = 5f;
+    public float jumpForce = 5;
     public Vector2 wallJumpForce;
 
-    [Range(0, 1)]
-    public float inAirMoveMultiplier = 0.7f;
-    [Range(0, 1)]
-    public float wallSlideSlowMuliplier = 0.7f;
+    [Range(0,1)]
+    public float inAirMoveMultiplier = .7f; // Should be from 0 to 1;
+    [Range(0,1)]
+    public float wallSlideSlowMultiplier = .7f;
     [Space]
-    public float dashDuration = 0.25f;
-    public float dashSpeed = 20f;
+    public float dashDuration = .25f;
+    public float dashSpeed = 20;
+
+
 
     private bool facingRight = true;
     public int facingDir { get; private set; } = 1;
@@ -59,6 +65,7 @@ public class Player : MonoBehaviour
 
         stateMachine = new StateMachine();
         input = new PlayerInputSet();
+
 
         idleState = new Player_IdleState(this, stateMachine, "idle");
         moveState = new Player_MoveState(this, stateMachine, "move");
@@ -86,7 +93,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        stateMachine.Initialize(idleState);
+         stateMachine.Initialize(idleState);
     }
 
     private void Update()
@@ -114,22 +121,23 @@ public class Player : MonoBehaviour
         stateMachine.currentState.CallAnimationTrigger();
     }
 
-    public void SetVelocity(float xVelocity, float yVelocty)
+    public void SetVelocity(float xVelocity, float yVelocity)
     {
-        rb.linearVelocity = new Vector2(xVelocity, yVelocty);
+        rb.linearVelocity = new Vector2(xVelocity, yVelocity);
         HandleFlip(xVelocity);
     }
 
-    private void HandleFlip(float xVelocity)
+    private void HandleFlip(float xVelcoity)
     {
-        if (xVelocity > 0 && facingRight == false)
+        if (xVelcoity > 0 && facingRight == false)
             Flip();
-        else if (xVelocity < 0 && facingRight)
+        else if (xVelcoity < 0 && facingRight)
             Flip();
     }
 
     public void Flip()
     {
+        Debug.Log(rb.linearVelocity.x);
         transform.Rotate(0, 180, 0);
         facingRight = !facingRight;
         facingDir = facingDir * -1;
@@ -141,6 +149,7 @@ public class Player : MonoBehaviour
         wallDetected = Physics2D.Raycast(primaryWallCheck.position, Vector2.right * facingDir, wallCheckDistance, whatIsGround)
                     && Physics2D.Raycast(secondaryWallCheck.position, Vector2.right * facingDir, wallCheckDistance, whatIsGround);
     }
+
 
     private void OnDrawGizmos()
     {

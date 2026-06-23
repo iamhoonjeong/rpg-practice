@@ -4,6 +4,7 @@ public class Player_WallJumpState : EntityState
 {
     public Player_WallJumpState(Player player, StateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
     {
+
     }
 
     public override void Enter()

@@ -9,13 +9,14 @@ public class Player_BasicAttackState : EntityState
     private int attackDir;
     private int comboIndex = 1;
     private int comboLimit = 3;
-    private const int FirstComboIndex = 1;
+    private const int FirstComboIndex = 1; // We start combo index with number 1, this parametr is used in the Animator.
+
 
     public Player_BasicAttackState(Player player, StateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
     {
         if (comboLimit != player.attackVelocity.Length)
         {
-            Debug.LogWarning("Combo limit adjusted because of the difference of the array length");
+            Debug.LogWarning("Adjusted combo limit to match attack velocity array!");
             comboLimit = player.attackVelocity.Length;
         }
     }
@@ -26,16 +27,20 @@ public class Player_BasicAttackState : EntityState
         comboAttackQueued = false;
         ResetComboIndexIfNeeded();
 
-        attackDir = player.moveInput.x != 0 ? (int)player.moveInput.x : player.facingDir;
+        // Define attack direction according to input
+        attackDir = player.moveInput.x != 0 ? ((int)player.moveInput.x) : player.facingDir;
 
-        anim.SetInteger("basicAttackIndex", comboIndex);
+        anim.SetInteger("baiscAttackIndex", comboIndex);
         ApplyAttackVelocity();
     }
+
 
     public override void Update()
     {
         base.Update();
         HandleAttackVelocity();
+
+        // detect and damage enemies
 
         if (input.Player.Attack.WasPressedThisFrame())
             QueueNextAttack();
@@ -72,7 +77,7 @@ public class Player_BasicAttackState : EntityState
     {
         attackVelocityTimer -= Time.deltaTime;
 
-        if (attackVelocityTimer < 0)
+        if(attackVelocityTimer < 0)
             player.SetVelocity(0, rb.linearVelocity.y);
     }
 
@@ -83,6 +88,7 @@ public class Player_BasicAttackState : EntityState
         attackVelocityTimer = player.attackVelocityDuration;
         player.SetVelocity(attackVelocity.x * attackDir, attackVelocity.y);
     }
+
 
     private void ResetComboIndexIfNeeded()
     {

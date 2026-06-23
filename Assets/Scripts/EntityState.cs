@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public abstract class EntityState
 {
@@ -34,7 +33,7 @@ public abstract class EntityState
     public virtual void Update()
     {
         stateTimer -= Time.deltaTime;
-        anim.SetFloat("yVelocity", rb.linearVelocityY);
+        anim.SetFloat("yVelocity", rb.linearVelocity.y);
 
         if (input.Player.Dash.WasPressedThisFrame() && CanDash())
             stateMachine.ChangeState(player.dashState);
@@ -57,6 +56,7 @@ public abstract class EntityState
 
         if (stateMachine.currentState == player.dashState)
             return false;
+
 
         return true;
     }

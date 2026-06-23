@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player_JumpState : Player_AiredState
@@ -11,14 +10,16 @@ public class Player_JumpState : Player_AiredState
     {
         base.Enter();
 
-        player.SetVelocity(rb.linearVelocityX, player.jumpForce);
+
+        player.SetVelocity(rb.linearVelocity.x, player.jumpForce);
     }
+
 
     public override void Update()
     {
         base.Update();
 
-        if (rb.linearVelocityY < 0 && stateMachine.currentState != player.jumpAttackState)
+        if (rb.linearVelocity.y < 0 && stateMachine.currentState != player.jumpAttackState)
             stateMachine.ChangeState(player.fallState);
     }
 }
