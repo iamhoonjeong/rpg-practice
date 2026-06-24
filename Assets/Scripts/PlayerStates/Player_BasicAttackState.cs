@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player_BasicAttackState : EntityState
+public class Player_BasicAttackState : PlayerState
 {
     private float attackVelocityTimer;
     private float lastTimeAttacked;
@@ -77,7 +77,7 @@ public class Player_BasicAttackState : EntityState
     {
         attackVelocityTimer -= Time.deltaTime;
 
-        if(attackVelocityTimer < 0)
+        if (attackVelocityTimer < 0)
             player.SetVelocity(0, rb.linearVelocity.y);
     }
 
