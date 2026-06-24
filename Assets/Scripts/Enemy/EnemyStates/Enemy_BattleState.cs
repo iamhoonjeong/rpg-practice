@@ -13,8 +13,10 @@ public class Enemy_BattleState : EnemyState
     {
         base.Enter();
 
+        UpdateBattleTimer();
+
         if (player == null)
-            player = enemy.playerDetected().transform;
+            player = enemy.GetPlayerReference();
 
         if (ShouldRetreat())
         {
@@ -27,7 +29,7 @@ public class Enemy_BattleState : EnemyState
     {
         base.Update();
 
-        if (enemy.playerDetected() == true)
+        if (enemy.playerDetected())
             UpdateBattleTimer();
 
         if (BattleTimeIsOver()) stateMachine.ChangeState(enemy.idleState);
