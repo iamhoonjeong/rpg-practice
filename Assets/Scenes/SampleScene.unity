@@ -320,6 +320,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0795899c6f9fd17499ac7d9df420624b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundCheckDistance: 1.4
+  wallCheckDistance: 0.4
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
+  primaryWallCheck: {fileID: 622737139}
+  secondaryWallCheck: {fileID: 1178330335}
   attackVelocity:
   - {x: 3, y: 1.5}
   - {x: 1, y: 2.5}
@@ -334,13 +341,6 @@ MonoBehaviour:
   wallSlideSlowMultiplier: 0.4
   dashDuration: 0.25
   dashSpeed: 20
-  groundCheckDistance: 1.4
-  wallCheckDistance: 0.4
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 64
-  primaryWallCheck: {fileID: 622737139}
-  secondaryWallCheck: {fileID: 1178330335}
 --- !u!4 &274070544
 Transform:
   m_ObjectHideFlags: 0
