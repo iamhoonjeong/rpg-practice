@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: e0d5f84c3c41da444a5260f2f1a581e0
+guid: 072ec092a5f244dd3a6a2540e72788da
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4050617012171864720
-    second: chest_damaged_0
+      213: 8181396477003839159
+    second: Enemy_AttackAlert_0
+  - first:
+      213: 4961445968188712750
+    second: Enemy_AttackAlert_1
+  - first:
+      213: -8357495285596298861
+    second: Enemy_AttackAlert_2
+  - first:
+      213: -8900005401159255355
+    second: Enemy_AttackAlert_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +109,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: chest_damaged_0
+      name: Attack Alert_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 33
-        height: 14
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 09a78a326bea63830800000000000000
-      internalID: 4050617012171864720
+      spriteID: 0559b5d6d66d345409f704e88027cb71
+      internalID: -1999538627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack Alert_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 245d3197527ef4c489e226c62197253b
+      internalID: -1471795459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack Alert_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 215aad7fd81bd423090ab3f73edb5327
+      internalID: 1730312012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack Alert_3
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48dbef397d78842f9aa5052b8929faa5
+      internalID: -1229623602
       vertices: []
       indices: 
       edges: []
@@ -125,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 03b230e9d57be483aabbd851deeb5fcf
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      chest_damaged_0: 4050617012171864720
+      Attack Alert_0: -1999538627
+      Attack Alert_1: -1471795459
+      Attack Alert_2: 1730312012
+      Attack Alert_3: -1229623602
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

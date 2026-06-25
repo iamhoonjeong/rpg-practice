@@ -7,6 +7,8 @@ public class Enemy : Entity
     public Enemy_MoveState moveState;
     public Enemy_AttackState attackState;
     public Enemy_BattleState battleState;
+    public Enemy_DeadState deadState;
+    public Enemy_StunnedState stunnedState;
 
     [Header("Battle details")]
     public float battleMoveSpeed = 3f;
@@ -14,6 +16,11 @@ public class Enemy : Entity
     public float battleTimeDuration = 5f;
     public float minRetreatdistance = 1f;
     public Vector2 retreatVelocity;
+
+    [Header("Stunned state details")]
+    public float stunnedDuration = 1f;
+    public Vector2 stunnedVelocity = new Vector2(7f, 7f);
+    [SerializeField] protected bool canBeStunned;
 
     [Header("Movement details")]
     public float idleTime = 2f;
@@ -26,6 +33,20 @@ public class Enemy : Entity
     [SerializeField] private Transform playerCheck;
     [SerializeField] private float playerCheckDistance = 10f;
     public Transform player { get; private set; }
+
+    public void EnableCounterWindow(bool enable) => canBeStunned = enable;
+
+    public override void EntityDeath()
+    {
+        base.EntityDeath();
+
+        stateMachine.ChangeState(deadState);
+    }
+
+    private void HandlePlayerDeath()
+    {
+        stateMachine.ChangeState(idleState);
+    }
 
     public void TryEnterBattleState(Transform player)
     {
@@ -65,5 +86,15 @@ public class Enemy : Entity
         Gizmos.DrawLine(playerCheck.position, new Vector3(playerCheck.position.x + facingDir * attackDistance, playerCheck.position.y));
         Gizmos.color = Color.green;
         Gizmos.DrawLine(playerCheck.position, new Vector3(playerCheck.position.x + facingDir * minRetreatdistance, playerCheck.position.y));
+    }
+
+    private void OnEnable()
+    {
+        Player.OnPlayerDeath += HandlePlayerDeath;
+    }
+
+    private void OnDisable()
+    {
+        Player.OnPlayerDeath -= HandlePlayerDeath;
     }
 }
