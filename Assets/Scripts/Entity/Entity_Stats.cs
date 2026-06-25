@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class Entity_Stats : MonoBehaviour
 {
-    public Stat maxHealth;
+    public Stat_ResourceGroup resources;
     public Stat_MajorGroup major;
     public Stat_OffenseGroup offense;
     public Stat_DefenceGroup defense;
 
-    public float GetElementalDamage(out ElementalType element)
+    public float GetElementalDamage(out ElementalType element, float scaleFactor = 1)
     {
         float fireDamage = offense.fireDamge.GetValue();
         float iceDamage = offense.iceDamage.GetValue();
@@ -44,7 +44,7 @@ public class Entity_Stats : MonoBehaviour
         float weakerElementsDamage = bonusFire + bonusIce + bonusLightning;
         float finalDamage = highestDamage + weakerElementsDamage + bonusElementalDamage;
 
-        return finalDamage;
+        return finalDamage * scaleFactor;
     }
 
     public float GetElementalResistance(ElementalType element)
@@ -72,7 +72,7 @@ public class Entity_Stats : MonoBehaviour
         return finalResistance;
     }
 
-    public float GetPhysicalDamage(out bool isCrit)
+    public float GetPhysicalDamage(out bool isCrit, float scaleFactor = 1)
     {
         float baseDamage = offense.damage.GetValue();
         float bonusDamage = major.strength.GetValue();
@@ -89,7 +89,7 @@ public class Entity_Stats : MonoBehaviour
         isCrit = Random.Range(0, 100) < critChange;
         float finalDamage = isCrit ? totalBaseDamage * critPower : totalBaseDamage;
 
-        return finalDamage;
+        return finalDamage * scaleFactor;
     }
 
     public float GetArmorMitigation(float armorReduction)
@@ -131,7 +131,7 @@ public class Entity_Stats : MonoBehaviour
 
     public float GetMaxHealth()
     {
-        float baseMaxHealth = maxHealth.GetValue();
+        float baseMaxHealth = resources.maxHealth.GetValue();
         float bonusMaxHealth = major.vitality.GetValue() * 5;
         float finalMaxHealth = baseMaxHealth + bonusMaxHealth;
 
