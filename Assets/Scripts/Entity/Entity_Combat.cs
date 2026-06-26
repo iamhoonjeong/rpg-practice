@@ -62,7 +62,7 @@ public class Entity_Combat : MonoBehaviour
         if (element == ElementalType.Fire && statusHandler.CanBeApplied(ElementalType.Fire))
         {
             scaleFactor = fireScale;
-            float fireDamage = stats.offense.fireDamge.GetValue() * scaleFactor;
+            float fireDamage = stats.offense.fireDamage.GetValue() * scaleFactor;
             statusHandler.ApplyBurnEffect(defaultDuration, fireDamage);
         }
 
